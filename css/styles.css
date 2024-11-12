@@ -1,0 +1,894 @@
+/* ========================
+   General Reset
+   ======================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ========================
+   Body Styles
+   ======================== */
+body {
+    background-color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    color: #303030;
+}
+
+/* ========================
+   Typography
+   ======================== */
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    font-size: 50px;
+    line-height: 1.1;
+    color: #FFFFFF;
+    font-weight: 300;
+    margin-bottom: 40px;
+    white-space: pre-line;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #303030;
+}
+
+h3 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+p {
+    font-size: 0.9rem;
+    color: #7B7B7B;
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+/* ========================
+   Navigation Styles
+   ======================== */
+nav {
+    position: absolute;
+    top: 14px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    z-index: 10;
+}
+
+nav .logo img {
+    width: 121px; /* Reduced by 15% from 143px */
+    height: 26px; /* Reduced proportionally */
+}
+
+/* Navigation Link Hover Effect */
+nav .menu a {
+    position: relative;
+    margin-left: 80px;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 200;
+}
+
+/* Ellipse on hover without changing text color */
+nav .menu a::before {
+    content: '';
+    position: absolute;
+    left: -14px; /* 14px before the link text */
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: #E35D23;
+    border-radius: 50%; /* Makes it a circle */
+    transform: translateY(-50%) scale(0); /* Initial scale of 0 for hiding */
+    transition: transform 0.3s ease; /* Smooth transition for the scale */
+}
+
+nav .menu a:hover::before {
+    transform: translateY(-50%) scale(1); /* Scale up on hover */
+}
+
+/* ========================
+   General Button Styles for Consistency
+   ======================== */
+/* General Button Styles */
+button, .cta-button, .biomarker-btn, .nutrition-btn, .workouts-btn, .supplements-btn {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 15px 30px;
+    background-color: #FFFFFF; /* Default background color */
+    color: #25281F; /* Default text color */
+    border: none;
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer;
+    text-decoration: none; /* Removes underline from links */
+    text-align: center; /* Ensures text is centered */
+    width: auto; /* Adjust width to content */
+    max-width: 320px; /* Optional: Set a max width */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effects */
+}
+
+/* Hover Effect for All Buttons */
+button:hover, .cta-button:hover, .biomarker-btn:hover, .nutrition-btn:hover, .workouts-btn:hover, .supplements-btn:hover {
+    background-color: #E5E5E5; /* Lighter shade on hover */
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+
+/* Section-Specific Overrides */
+.cta-button {
+    background-color: #E35D23;
+    color: #FFFFFF;
+}
+
+.cta-button:hover {
+    background-color: #C84A1D; /* Darker shade for the hero section */
+}
+
+.biomarker-btn, .nutrition-btn, .workouts-btn, .supplements-btn {
+    background-color: #FFFFFF; /* Default white background */
+    color: #25281F; /* Dark text */
+}
+
+.biomarker-btn:hover, .nutrition-btn:hover, .workouts-btn:hover, .supplements-btn:hover {
+    background-color: #DDDDDD; /* Slightly darker on hover */
+}
+
+/* ========================
+   Hero Section Styles
+   ======================== */
+.hero {
+    position: relative;
+    height: 80vh;
+    padding: 14px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+}
+
+/* Inner Hero Section with Image */
+.hero-inner {
+    height: 100%;
+    width: 100%;
+    background: url('../assets/hero-homepage.png') no-repeat;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    border-radius: 20px;
+}
+
+.hero .overlay-text {
+    position: absolute;
+    right: 5%;
+    top: 25%;
+    max-width: 35%;
+    text-align: left;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 100;
+    line-height: 1.1;
+    color: #FFFFFF; /* Ensure text color is set */
+}
+
+.overlay-text h1 {
+    font-size: 50px;
+    color: #FFFFFF;
+    font-weight: 100;
+    line-height: 1.1;
+    margin-bottom: 40px;
+    white-space: pre-line;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================
+   Small Text Sections
+   ======================== */
+.small-text {
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+.personalized-fitness-plan {
+    color: #303030;
+    font-size: 0.9rem;
+    top: 22%;
+    left: 5%;
+    max-width: 15%;
+}
+
+.comprehensive-wellness {
+    color: #303030;
+    font-size: 0.9rem;
+    top: 65%;
+    left: 5%;
+    max-width: 15%;
+}
+
+.biomarker-optimization {
+    color: #303030;
+    font-size: 0.9rem;
+    top: 44%;
+    right: 33%;
+    max-width: 20%;
+}
+
+.small-text p {
+    margin-bottom: 2px;
+}
+
+.small-text p:first-child {
+    color: #303030;
+    font-weight: 500;
+}
+
+.small-text p:last-child {
+    color: #7B7B7B;
+    font-weight: 300;
+}
+
+/* ========================
+   Biomarker Section Styles
+   ======================== */
+.section-biomarker {
+    position: relative;
+    width: calc(100% - 28px); /* Full width minus 14px margin on each side */
+    max-width: 1892px; /* Matches hero section width */
+    height: 500px; /* Fixed height */
+    margin: 0 auto; /* Centers the section horizontally */
+    padding: 0 14px; /* Adds 14px internal padding for consistency */
+    border-radius: 20px; /* Rounded corners */
+    overflow: hidden; /* Ensures rounded corners apply */
+    background-image: url('../assets/biomarkerTest.png'); /* Background image */
+    background-size: cover; /* Ensures the image covers the section */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents image repetition */
+    display: flex; /* Flexbox layout for alignment */
+    justify-content: space-between; /* Aligns content (text and image) side by side */
+    align-items: center; /* Vertical alignment */
+    color: #FFFFFF; /* Text color for readability */
+    margin-bottom: 14px;
+}
+
+/* Overlay to darken the background image */
+.section-biomarker::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    z-index: 1; /* Places overlay beneath the content */
+}
+
+/* Inner container for text and content */
+.biomarker-container {
+    position: relative;
+    z-index: 2; /* Ensures content is above the overlay */
+    width: 90%; /* Adjusts container width for responsiveness */
+    max-width: 1200px; /* Maximum width for large screens */
+    display: flex; /* Enables flex layout */
+    justify-content: space-between; /* Aligns text and image side-by-side */
+    align-items: center; /* Aligns items vertically */
+    gap: 20px; /* Adds spacing between text and image */
+}
+
+/* Text section styles */
+.biomarker-text {
+    width: 50%; /* Takes half the section width */
+    display: flex;
+    flex-direction: column; /* Stacks elements vertically */
+    gap: 20px; /* Spacing between text elements */
+    padding: 20px; /* Internal padding */
+    margin-left: 30px; /* Moves the text 30px to the right */
+}
+
+.biomarker-tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    color: #FFFFFF;
+}
+
+.biomarker-description {
+    font-family: 'Roboto', sans-serif; /* Ensure proper font is applied */
+    font-size: 16px;
+    font-weight: 300; /* Light weight */
+    color: #CCCCCC;
+    line-height: 1.6;
+    max-width: 320px; /* Reduce the width to wrap text sooner */
+    word-wrap: break-word; /* Ensure long words wrap properly */
+    margin-bottom: 10px; /* Reduce space below tagline */
+}
+
+/* ========================
+   Image Slider Section
+   ======================== */
+.section-imageSlider {
+    position: relative;
+    width: calc(100% - 28px); /* Full width minus side margins */
+    max-width: 1892px; /* Matches other sections */
+    height: 500px; /* Fixed height */
+    margin: 0 auto; /* Center align */
+    padding: 0 14px; /* Internal padding */
+    border-radius: 20px; /* Rounded corners */
+    overflow: hidden; /* Enforce rounded corners */
+    background-image: url('../assets/imageSlider.png'); /* Background image */
+    background-size: cover; /* Ensures image covers the section */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents image repetition */
+    display: flex;
+    justify-content: space-between; /* Aligns content evenly */
+    align-items: flex-end; /* Aligns text to the bottom */
+    margin-bottom: 14px;
+}
+
+/* Individual Text Labels */
+.imageSlider-text {
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    font-size: 26px;
+    font-weight: 300;
+    color: #FFFFFF; /* White text */
+    position: absolute;
+    bottom: 120px; /* Places text 120px above the bottom */
+    text-align: left; /* Aligns text to the left */
+    width: 25%; /* Each section occupies 25% of the width */
+}
+
+/* Positioning Each Label */
+.imageSlider-text:nth-child(1) {
+    left: 7%; /* Aligns the first text to the start of the section */
+}
+
+.imageSlider-text:nth-child(2) {
+    left: 29.5%; /* Aligns the second text in the second quarter */
+}
+
+.imageSlider-text:nth-child(3) {
+    left: 52%; /* Aligns the third text in the third quarter */
+}
+
+.imageSlider-text:nth-child(4) {
+    left: 74%; /* Aligns the fourth text in the last quarter */
+}
+
+/* ========================
+   Nutrition Section Styles
+   ======================== */
+.section-nutrition {
+    position: relative;
+    width: calc(100% - 28px); /* Full width minus margins */
+    max-width: 1892px;
+    height: 500px; /* Fixed height */
+    margin: 0 auto;
+    padding: 0 14px;
+    border-radius: 20px; /* Rounded corners */
+    overflow: hidden;
+    background-image: url('../assets/nutrition.png'); /* Background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex; /* Flexbox layout */
+    justify-content: flex-end; /* Align all content to the right */
+    align-items: center; /* Center vertically */
+    color: #FFFFFF; /* Text color */
+    margin-bottom: 14px;
+}
+
+/* Nutrition Section Container */
+.nutrition-container {
+    position: relative;
+    z-index: 2; /* Ensure content is above overlay */
+    max-width: 50%; /* Limit width to half of the section */
+    padding: 0 30px; /* Add padding for spacing */
+    text-align: right; /* Align text to the right */
+}
+
+.nutrition-text {
+    display: flex; /* Enable flexbox for the text section */
+    flex-direction: column; /* Stack tagline, description, and button vertically */
+    justify-content: flex-start; /* Align content to the top of the text section */
+    align-items: flex-start; /* Align items to the left */
+    gap: 20px; /* Add spacing between tagline, description, and button */
+    text-align: left; /* Ensure text is left-aligned */
+    max-width: 400px; /* Set a fixed width to ensure alignment consistency */
+}
+
+.nutrition-tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    margin-bottom: 0px; /* Space between tagline and description */
+    color: #FFFFFF;
+}
+
+.nutrition-description {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 10px; /* Space between description and button */
+    color: #FFFFFF;
+    max-width: 320px; /* Reduce the width to wrap text sooner */
+    word-wrap: break-word; /* Ensure long words wrap properly */
+}
+
+/* Image section styles */
+.nutrition-image {
+    width: 50%; /* Half of the section width */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nutrition-image img {
+    width: 100%; /* Scale responsively */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain;
+}
+
+/* ========================
+   Workouts Section Styles
+   ======================== */
+.section-workouts {
+    position: relative;
+    width: calc(100% - 28px); /* Full width minus 14px margins */
+    max-width: 1892px; /* Matches other sections */
+    height: 500px; /* Fixed height */
+    margin: 0 auto; /* Center align */
+    padding: 0 14px; /* Internal padding */
+    border-radius: 20px; /* Rounded corners */
+    overflow: hidden; /* Enforce rounded corners */
+    background-image: url('../assets/workout.png'); /* Background image */
+    background-size: cover; /* Ensures image covers the section */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents image repetition */
+    display: flex; /* Flexbox layout */
+    justify-content: space-between; /* Aligns content side by side */
+    align-items: center; /* Vertical alignment */
+    color: #FFFFFF; /* Text color */
+    margin-bottom: 14px;
+}
+
+/* Workouts Section Container */
+.workouts-container {
+    position: relative;
+    z-index: 2; /* Ensure content is above the overlay */
+    width: 90%; /* Adjust container width for responsiveness */
+    max-width: 1200px; /* Align with the biomarker section width */
+    display: flex;
+    justify-content: space-between; /* Space between text and image */
+    align-items: center; /* Center align vertically */
+    padding: 20px; /* Internal spacing */
+    gap: 20px; /* Space between child elements */
+}
+
+/* Workouts Text Placement */
+.workouts-text {
+    width: 50%; /* Occupies half the container width */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    gap: 20px; /* Space between tagline, description, and button */
+    text-align: left; /* Align text content to the left */
+    padding-left: 30px; /* Adjusts positioning slightly */
+    margin-left: 30px; /* Moves the text 30px to the right */
+}
+
+.workouts-tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    color: #FFFFFF; /* White text color */
+}
+
+.workouts-description {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300; /* Light font weight */
+    color: #FFFFFF; /* White text color */
+    line-height: 1.6;
+    max-width: 320px; /* Wrap text sooner */
+    word-wrap: break-word;
+}
+
+/* Image section styles */
+.workouts-image {
+    width: 50%; /* Half of the section width */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.workouts-image img {
+    width: 100%; /* Scale responsively */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: contain;
+}
+
+/* ========================
+   Motivation Section Styles
+   ======================== */
+.section-motivation {
+    width: calc(100% - 28px); /* Full width minus margins */
+    max-width: 1920px; /* Matches other sections */
+    margin: 80px auto; /* 80px spacing above and below */
+    text-align: center; /* Center-aligns the text */
+    padding: 0 14px; /* Adds horizontal padding */
+}
+
+.motivation-text {
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    font-weight: 100; /* Light font weight */
+    font-size: 60px; /* Large font size */
+    color: #25281F; /* Text color */
+    line-height: 1.2; /* Line height for better readability */
+}
+
+/* ========================
+   Supplements Section Styles
+   ======================== */
+.section-supplements {
+    position: relative;
+    width: calc(100% - 28px); /* Full width minus 14px margins */
+    max-width: 1892px; /* Matches other sections */
+    height: 500px; /* Fixed height */
+    margin: 0 auto; /* Center align */
+    padding: 0 14px; /* Internal padding */
+    border-radius: 20px; /* Rounded corners */
+    overflow: hidden; /* Enforce rounded corners */
+    background-image: url('../assets/supplements.png'); /* Background image */
+    background-size: cover; /* Ensures image covers the section */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents image repetition */
+    display: flex; /* Flexbox layout */
+    justify-content: flex-start; /* Aligns content on the left */
+    align-items: center; /* Vertical alignment */
+    color: #FFFFFF; /* Text color */
+}
+
+/* Supplements Section Container */
+.supplements-container {
+    position: relative;
+    z-index: 2; /* Ensure content is above the overlay */
+    width: 90%; /* Adjust container width for responsiveness */
+    max-width: 1200px; /* Align with the workout section width */
+    display: flex;
+    justify-content: space-between; /* Space between text and image */
+    align-items: center; /* Center align vertically */
+    padding: 20px; /* Internal spacing */
+    gap: 20px; /* Space between child elements */
+}
+
+/* Text section styles */
+.supplements-text {
+    width: 50%; /* Takes half the section width */
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    gap: 20px; /* Spacing between tagline, description, and button */
+    text-align: left; /* Align text to the left */
+    margin-left: 30px; /* Moves the text 30px to the right */
+}
+
+.supplements-tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    color: #FFFFFF; /* White text color */
+    margin-bottom: 0; /* Reduce space below tagline */
+}
+
+.supplements-description {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300; /* Light font weight */
+    color: #FFFFFF; /* White text color */
+    line-height: 1.6;
+    max-width: 320px; /* Wrap text sooner */
+    word-wrap: break-word;
+    margin-bottom: 10px; /* Reduce space below tagline */
+}
+
+/* ========================
+   Image Slider Section
+   ======================== */
+/* (Already defined above) */
+
+/* ========================
+   Footer Styles
+   ======================== */
+footer {
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    margin: 50px auto; /* 50px spacing above and below */
+}
+
+/* Footer Logo */
+footer .footer-logo img {
+    width: 121px; /* Reduced by 15% from 143px */
+    height: 26px; /* Reduced proportionally */
+}
+
+/* Social Icons Container */
+footer .social-icons {
+    display: flex;
+    justify-content: center; /* Center the icons horizontally */
+    align-items: center; /* Center the icons vertically */
+    gap: 15px; /* Add space between icons */
+}
+
+/* Social Icons */
+footer .social-icons img {
+    width: auto; /* Auto-scale images */
+}
+
+/* Individual Icon Sizes */
+.social-icons .icon-x { 
+    width: 22px; 
+}
+.social-icons .icon-instagram { 
+    width: 30px; 
+}
+.social-icons .icon-linkedin { 
+    width: 30px; 
+}
+
+/* ========================
+   Responsive Design
+   ======================== */
+@media (max-width: 1024px) {
+    /* Biomarker Section Adjustments */
+    .section-biomarker {
+        height: 450px; /* Adjust height for tablets */
+        padding: 40px 50px;
+    }
+
+    .biomarker-tagline {
+        font-size: 28px;
+    }
+
+    .biomarker-description {
+        font-size: 14px;
+    }
+
+    .biomarker-btn {
+        font-size: 14px;
+    }
+
+    .biomarker-container {
+        flex-direction: column; /* Stacks text and image vertically */
+        text-align: center; /* Centers text */
+    }
+
+    .biomarker-text, .biomarker-image {
+        width: 100%; /* Full width for each section */
+    }
+
+    .biomarker-image img {
+        width: 80%; /* Reduces image size for smaller screens */
+    }
+
+    /* Nutrition Section Adjustments */
+    .section-nutrition {
+        height: 450px;
+    }
+
+    .nutrition-tagline {
+        font-size: 28px;
+    }
+
+    .nutrition-description {
+        font-size: 14px;
+    }
+
+    .nutrition-btn {
+        font-size: 14px;
+    }
+
+    .nutrition-container {
+        display: flex;
+        flex-direction: row-reverse; /* Ensures the text is on the right */
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .nutrition-text, .nutrition-image {
+        width: 100%;
+    }
+
+    .nutrition-image img {
+        width: 80%; /* Adjust image size for smaller screens */
+    }
+
+    /* Workouts Section Adjustments */
+    .section-workouts {
+        height: 450px;
+    }
+
+    .workouts-tagline {
+        font-size: 28px;
+    }
+
+    .workouts-description {
+        font-size: 14px;
+    }
+
+    .workouts-btn {
+        font-size: 14px;
+    }
+
+    .workouts-container {
+        flex-direction: column; /* Stack text and image */
+        justify-content: center; /* Center items vertically */
+        text-align: center;
+    }
+
+    .workouts-text, .workouts-image {
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .workouts-image img {
+        width: 80%; /* Adjust image size */
+    }
+
+    /* Supplements Section Adjustments */
+    .section-supplements {
+        height: 450px;
+    }
+
+    .supplements-tagline {
+        font-size: 28px;
+    }
+
+    .supplements-description {
+        font-size: 14px;
+    }
+
+    .supplements-btn {
+        font-size: 14px;
+    }
+
+    .supplements-container {
+        flex-direction: column; /* Stack text and image vertically */
+        text-align: center; /* Centers text */
+    }
+
+    .supplements-text {
+        width: 100%; /* Full width for smaller screens */
+    }
+}
+
+@media (max-width: 768px) {
+    /* Biomarker Section Adjustments */
+    .section-biomarker {
+        height: auto; /* Allows flexible height */
+        padding: 20px;
+    }
+
+    .biomarker-container {
+        text-align: center; /* Centers all content */
+    }
+
+    .biomarker-tagline {
+        font-size: 24px; /* Smaller font size */
+    }
+
+    .biomarker-description {
+        font-size: 12px; /* Smaller font size */
+    }
+
+    .biomarker-btn {
+        font-size: 12px;
+        padding: 8px 16px; /* Smaller button size */
+        max-width: none; /* Removes max-width for better responsiveness */
+    }
+
+    .biomarker-image img {
+        width: 70%; /* Further reduces image size */
+    }
+
+    /* Nutrition Section Adjustments */
+    .section-nutrition {
+        height: auto;
+        padding: 20px;
+    }
+
+    .nutrition-tagline {
+        font-size: 24px;
+    }
+
+    .nutrition-description {
+        font-size: 12px;
+    }
+
+    .nutrition-btn {
+        font-size: 12px;
+        padding: 8px 16px;
+        max-width: none; /* Removes max-width for better responsiveness */
+    }
+
+    .nutrition-image img {
+        width: 70%;
+    }
+
+    /* Workouts Section Adjustments */
+    .section-workouts {
+        height: auto;
+        padding: 20px;
+    }
+
+    .workouts-tagline {
+        font-size: 24px;
+    }
+
+    .workouts-description {
+        font-size: 12px;
+    }
+
+    .workouts-btn {
+        font-size: 12px;
+        padding: 8px 16px;
+        max-width: none; /* Removes max-width for better responsiveness */
+    }
+
+    .workouts-image img {
+        width: 70%; /* Reduce image size further */
+    }
+
+    /* Supplements Section Adjustments */
+    .section-supplements {
+        height: auto;
+        padding: 20px;
+    }
+
+    .supplements-tagline {
+        font-size: 24px;
+    }
+
+    .supplements-description {
+        font-size: 12px;
+    }
+
+    .supplements-btn {
+        font-size: 12px;
+        padding: 8px 16px;
+        max-width: none; /* Removes max-width for better responsiveness */
+    }
+}
