@@ -1,0 +1,399 @@
+/* ========================
+   General Reset
+   ======================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ========================
+   Body Styles
+   ======================== */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #FFFFFF;
+    color: #303030;
+}
+
+/* ========================
+   Typography
+   ======================== */
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #FFFFFF;
+}
+
+p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* ========================
+   Navigation Styles
+   ======================== */
+nav {
+    position: absolute;
+    top: 14px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    z-index: 10;
+}
+
+nav .logo a {
+    text-decoration: none;
+}
+
+nav .logo a img {
+    width: 121px;
+    height: 26px;
+}
+
+nav .menu a {
+    position: relative;
+    margin-left: 80px;
+    color: #303030;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 200;
+}
+
+/* Clinical Solutions Active State */
+nav .menu a[href="clinical-solutions.html"]::before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: #E35D23;
+    border-radius: 50%;
+    transform: translateY(-50%) scale(1);
+}
+
+/* Hover Effect for Other Links */
+nav .menu a::before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: #E35D23;
+    border-radius: 50%;
+    transform: translateY(-50%) scale(0); /* Initially hidden */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+nav .menu a:hover::before {
+    transform: translateY(-50%) scale(1); /* Reveal circle on hover */
+}
+
+/* ========================
+   Hero Section Styles
+   ======================== */
+.hero {
+    height: 80vh;
+    background: url('../assets/hero-clinical_solutions.png') no-repeat center;
+    background-size: cover;
+    border-radius: 20px;
+    padding: 14px;
+    margin: 14px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/* Inner container for hero content */
+.hero-container {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Text section for the hero */
+.hero-text {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Reduced vertical spacing */
+    padding: 10px 0; /* Reduced padding */
+    margin-left: 49px;
+    text-align: left;
+    max-width: 700px; /* Limit tagline and description width */
+}
+
+.hero-tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 29px; /* Match the original size */
+    font-weight: 300; /* Match the original weight */
+    color: #333333; /* Ensure the correct color is applied */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.1; /* Match the original line spacing */
+    margin-top: 100px; /* Maintain original spacing */
+    margin-bottom: 20px; /* Maintain original spacing */
+}
+
+.hero-description {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px; /* Match the original size */
+    font-weight: 300; /* Match the original weight */
+    color: #333333; /* Ensure the correct color is applied */
+    line-height: 1.6; /* Match the original line height */
+    word-wrap: break-word;
+    max-width: 580px; /* Match the original width */
+    margin-bottom: 25px; /* Maintain original spacing */
+}
+
+
+.hero-text .cta-button {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    background-color: #E35D23;
+    padding: 15px 15px; /* Reduced padding */
+    color: #FFFFFF;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+    max-width: 320px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.hero-text .cta-button:hover {
+    background-color: #C84A1D;
+}
+
+/* ========================
+   How It Works Section Styles
+   ======================== */
+.section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: left; /* Align the section title to the left */
+}
+
+/* Section Title Styles */
+.section-title {
+    font-size: 90px; /* Font size in px */
+    font-weight: 400; /* Bold weight for emphasis */
+    margin-bottom: 40px; /* Space below the title */
+    color: #303030; /* Neutral dark gray */
+    text-align: left; /* Align text to the left */
+}
+
+.section h2 {
+    font-size: 40px; /* Use px for font size */
+    font-weight: 300; /* Match the original weight */
+    margin-bottom: 40px; /* Add space below the title */
+    color: #303030;
+    text-align: left; /* Align title to the left */
+}
+
+/* Horizontal Layout for Steps */
+.steps-container {
+    display: flex;
+    justify-content: space-between; /* Space out the steps evenly */
+    gap: 20px; /* Add spacing between steps */
+    align-items: flex-start;
+}
+
+.step {
+    flex: 1; /* Ensure all steps take equal width */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align items to the left */
+    text-align: left; /* Align text to the left */
+    padding: 10px; /* Add padding around each step */
+}
+
+.step-number {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 60px; /* Use px for font size */
+    font-weight: bold;
+    color: #0BABD6; /* Bright teal color */
+    margin-bottom: 15px; /* Space below the number */
+}
+
+.step h3 {
+    font-size: 18px; /* Use px for font size */
+    color: #333333;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.step p {
+    font-size: 16px; /* Use px for font size */
+    color: #333333;
+    max-width: 380px;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .steps-container {
+        flex-direction: column; /* Stack steps vertically on smaller screens */
+        align-items: center;
+    }
+
+    .step {
+        max-width: 100%; /* Allow steps to occupy full width */
+    }
+}
+
+
+/* ========================
+   Motivation Section Styles
+   ======================== */
+.motivation {
+    background-color: #333333; /* Dark background color */
+    padding: 80px 20px; /* Increase top and bottom padding */
+    text-align: center; /* Center the container */
+}
+
+.motivation-container {
+    max-width: 990px; /* Limit width for readability */
+    margin: 0 auto; /* Center the content horizontally */
+    text-align: left; /* Align text content to the left */
+}
+
+.motivation-container p {
+    font-family: 'Montserrat', sans-serif; /* Font family */
+    font-style: italic;
+    font-size: 30px; /* Font size */
+    font-weight: 100; /* Light font weight */
+    line-height: 1.2; /* Line height for readability */
+    color: #FFFFFF; /* White text color */
+}
+
+
+/* ========================
+   Footer Styles
+   ======================== */
+footer {
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    margin: 50px auto; /* 50px spacing above and below */
+}
+
+/* Footer Logo */
+footer .footer-logo img {
+    width: 121px; /* Reduced by 15% from 143px */
+    height: 26px; /* Reduced proportionally */
+}
+
+/* Social Icons Container */
+footer .social-icons {
+    display: flex;
+    justify-content: center; /* Center the icons horizontally */
+    align-items: center; /* Center the icons vertically */
+    gap: 15px; /* Add space between icons */
+}
+
+/* Social Icons */
+footer .social-icons img {
+    width: auto; /* Auto-scale images */
+}
+
+/* Individual Icon Sizes */
+.social-icons .icon-x { 
+    width: 22px; 
+}
+.social-icons .icon-instagram { 
+    width: 30px; 
+}
+.social-icons .icon-linkedin { 
+    width: 30px; 
+}
+
+
+
+/* ========================
+   Responsive Design
+   ======================== */
+@media (max-width: 1024px) {
+    /* Hero Section Adjustments */
+    .hero {
+        height: auto;
+    }
+
+    .hero-tagline {
+        font-size: 2.5rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .hero-text .cta-button {
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
+
+    /* General Section Adjustments */
+    .section {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Hero Section Adjustments */
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        width: 100%;
+        margin-left: 0;
+        padding: 10px;
+    }
+
+    .hero-tagline {
+        font-size: 2rem;
+    }
+
+    .hero-description {
+        font-size: 0.9rem;
+    }
+
+    .hero-text .cta-button {
+        font-size: 0.9rem;
+    }
+
+    /* General Section Adjustments */
+    .section {
+        text-align: center;
+    }
+
+    .section h2 {
+        font-size: 1.8rem;
+    }
+
+    .section p {
+        font-size: 0.9rem;
+    }
+}
