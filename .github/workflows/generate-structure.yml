@@ -8,61 +8,49 @@ on:
 jobs:
   generate-structure:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Generate project structure
+      - name: Create directories
         run: |
-          # Create directories
-          mkdir -p pages/api onboarding components styles public/images utils context models
-          
-          # Create base files
-          touch package.json next.config.js .env.local
-          echo "export default function App() { return null; }" > pages/_app.tsx
-          echo "export default function Home() { return null; }" > pages/index.tsx
-          echo "export default function Login() { return null; }" > pages/login.tsx
+          mkdir -p pages/onboarding
+          mkdir -p components
+          mkdir -p styles
+          mkdir -p public/images/sports
+          mkdir -p models
+          mkdir -p utils
+          mkdir -p pages/api
 
-          # Create onboarding pages
+      - name: Create files
+        run: |
+          touch pages/index.tsx
+          touch pages/login.tsx
           touch pages/onboarding/index.tsx
-          echo "export default function Step1() { return null; }" > pages/onboarding/step1-personal-details.tsx
-          echo "export default function Step2() { return null; }" > pages/onboarding/step2-preferred-sport.tsx
-          echo "export default function Step3() { return null; }" > pages/onboarding/step3-cuisines.tsx
-          echo "export default function Step4() { return null; }" > pages/onboarding/step4-dietary-restrictions.tsx
-          echo "export default function ThankYou() { return null; }" > pages/onboarding/thank-you.tsx
-
-          # Create API routes
-          echo "export default function handler(req, res) { res.status(200).json({ message: 'API Working' }); }" > pages/api/user.ts
-          echo "export default function handler(req, res) { res.status(200).json({ message: 'Auth Working' }); }" > pages/api/auth/[...nextauth].ts
-
-          # Create component placeholders
-          echo "export default function Header() { return null; }" > components/Header.tsx
-          echo "export default function Footer() { return null; }" > components/Footer.tsx
-          echo "export default function Button() { return null; }" > components/Button.tsx
-          echo "export default function ProgressBar() { return null; }" > components/ProgressBar.tsx
-          echo "export default function FormInput() { return null; }" > components/FormInput.tsx
-          echo "export default function SelectOption() { return null; }" > components/SelectOption.tsx
-          echo "export default function MultiSelectOption() { return null; }" > components/MultiSelectOption.tsx
-
-          # Create styles
+          touch pages/onboarding/step1-personal-details.tsx
+          touch pages/onboarding/step2-preferred-sport.tsx
+          touch pages/onboarding/step3-cuisines.tsx
+          touch pages/onboarding/step4-dietary-restrictions.tsx
+          touch pages/onboarding/thank-you.tsx
+          touch pages/profile.tsx
+          touch pages/api/auth/[...nextauth].ts
+          touch pages/api/user.ts
+          touch components/Header.tsx
+          touch components/Footer.tsx
+          touch components/Button.tsx
+          touch components/ProgressBar.tsx
+          touch components/FormInput.tsx
+          touch components/SelectOption.tsx
+          touch components/MultiSelectOption.tsx
           touch styles/global.css
-          echo ":root { --primary-color: #E35D23; --background-color: #FFFFFF; }" > styles/variables.css
+          touch styles/variables.css
+          touch models/User.ts
+          touch utils/dbConnect.ts
 
-          # Create public folder assets
-          touch public/favicon.ico
-          echo "Place your Hero logo SVG here" > public/images/Hero_logo.svg
-
-          # Create utilities and context files
-          echo "export const apiClient = () => null;" > utils/apiClient.ts
-          echo "export const validateInput = () => null;" > utils/validators.ts
-          echo "export const UserContext = { }; export default UserContext;" > context/UserContext.tsx
-
-          # Create models
-          echo "import { Schema, model, models } from 'mongoose'; export const UserSchema = new Schema({ email: String }); export default models.User || model('User', UserSchema);" > models/User.ts
-
-          # Create database connection utility
-          mkdir utils
-          echo "import mongoose from 'mongoose'; const MONGODB_URI = process.env.MONGODB_URI; let cached = global.mongoose || { conn: null, promise: null }; if (!cached.promise) { cached.promise = mongoose.connect(MONGODB_URI).then((mongoose) => mongoose); } export default async function dbConnect() { return cached.conn || (cached.conn = await cached.promise); }" > utils/dbConnect.ts
-
-          echo "Project structure generated successfully!"
+      - name: Commit and push
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Generate project structure"
+          git push
