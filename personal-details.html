@@ -10,16 +10,28 @@
         body {
             font-family: 'Montserrat', 'Roboto', sans-serif;
             color: #ffffff;
+            /* Remove or adjust the background-color if you want the image to be visible */
+            /* background-color: #000000; */
+            
+            /* Add the background image */
+            background-image: url('assets/backgrounds/fencing.jpg'); /* Adjust the path if necessary */
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: center center; /* Centers the image */
+            
+            /* Optional: Add a fallback background color */
             background-color: #000000;
+            
             margin: 0;
             padding: 0;
         }
+
         /* Navbar Styles */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #000000;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background for better readability */
             padding: 10px 20px;
         }
         nav .logo img {
@@ -31,11 +43,14 @@
             margin-left: 20px;
             font-size: 16px;
         }
+
         /* Form Styles */
         .form-container {
             max-width: 500px;
             margin: 50px auto;
             padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background to make the form stand out */
+            border-radius: 8px; /* Rounded corners for a smoother look */
         }
         .form-container label {
             display: block;
@@ -48,10 +63,11 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
-            background-color: transparent;
+            background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent input fields */
             border: 1px solid #ffffff;
             color: #ffffff;
             font-size: 16px;
+            border-radius: 4px; /* Rounded corners for inputs */
         }
         .form-container input::placeholder {
             color: #ffffff;
@@ -60,6 +76,7 @@
         .form-container select:focus {
             outline: none;
             border-color: #50BF2C;
+            background-color: rgba(255, 255, 255, 0.2); /* Slightly more opaque on focus */
         }
         .next-button-container {
             text-align: right;
@@ -72,13 +89,16 @@
             font-size: 18px;
             cursor: pointer;
             text-transform: uppercase;
+            border-radius: 4px; /* Rounded corners for the button */
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
         }
         .next-button:hover {
             background-color: #45a82d;
         }
+
         /* Footer Styles */
         footer {
-            background-color: #000000;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
             padding: 20px;
             text-align: center;
         }
@@ -95,6 +115,18 @@
         .social-icons img {
             width: 24px;
             height: 24px;
+        }
+
+        /* Optional: Add responsiveness */
+        @media (max-width: 600px) {
+            .form-container {
+                margin: 20px;
+                padding: 15px;
+            }
+            .next-button {
+                width: 100%;
+                padding: 10px;
+            }
         }
     </style>
 </head>
