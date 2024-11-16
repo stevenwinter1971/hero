@@ -7,6 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <!-- Styles -->
     <style>
+        /* Apply border-box to all elements for consistent sizing */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Montserrat', 'Roboto', sans-serif;
             color: #ffffff;
@@ -63,17 +68,28 @@
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
-            background-color: #000000; /* Changed to black background */
+            background-color: #000000; /* Black background */
             border: 1px solid #ffffff;
             color: #ffffff;
             font-size: 16px;
             border-radius: 4px; /* Rounded corners for inputs */
+            /* Remove default appearance in some browsers */
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
         }
-        .form-container input::placeholder {
-            color: #ffffff;
+        .form-container select {
+            /* Add a custom arrow using background image or CSS */
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="5"%3E%3Cpath fill="%23ffffff" d="M0 0l5 5 5-5z"/%3E%3C/svg%3E');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 10px 5px;
+            padding-right: 30px; /* Space for the arrow */
         }
+        .form-container input::placeholder,
         .form-container select::placeholder {
-            color: #ffffff; /* Ensure placeholder text in selects is white */
+            color: #ffffff;
+            opacity: 1; /* Ensures placeholder text is fully opaque */
         }
         .form-container input:focus,
         .form-container select:focus {
