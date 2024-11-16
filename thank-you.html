@@ -124,35 +124,92 @@
 
     <!-- JavaScript -->
     <script>
-        // On page load, send data to the server
+        // Function to upload athlete details to Airtable on page load
         window.onload = function() {
+            // Retrieve athlete details from individual keys in local storage
             const athleteDetails = {
                 Name: localStorage.getItem('athleteName'),
-                Age: parseInt(localStorage.getItem('athleteAge')),
+                Age: parseInt(localStorage.getItem('athleteAge')), // Ensure age is an integer
                 Sex: localStorage.getItem('athleteSex'),
                 Height: localStorage.getItem('athleteHeight'),
-                Weight: parseFloat(localStorage.getItem('athleteWeight')),
+                Weight: parseFloat(localStorage.getItem('athleteWeight')), // Ensure weight is a number
                 "Fitness Level": localStorage.getItem('athleteFitnessLevel'),
                 "Primary Sport": localStorage.getItem('primarySport'),
                 Cuisines: JSON.parse(localStorage.getItem('selectedCuisines')),
                 "Dietary Considerations": JSON.parse(localStorage.getItem('selectedDietaryConsiderations'))
             };
 
-            // Send data to the server
-            fetch('submit-athlete-details', { // Replace with your server endpoint
+            console.log('Athlete details:', athleteDetails);
+
+            // Airtable API to upload athlete details
+            fetch('https://api.airtable.com/v0/appyrql0f5rr5lzwU/Athletes', {
                 method: 'POST',
                 headers: {
+                    'Authorization': 'Bearer patusDgjA5BbLrg9N.e6c5fb0fc51f2dff0168570446c43b0e5e38311e4b664b0762794c06d7c9a017',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(athleteDetails)
+                body: JSON.stringify({
+                    fields: athleteDetails
+                })
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Data submitted successfully:', data);
-                // Optionally, handle any server response
+                if (data.id) { // If the insert was successful, Airtable will return an ID
+                    console.log('Athlete record added successfully:', data);
+
+                    // Add a 3-second delay before querying the most recent athlete record
+                    setTimeout(() => {
+                        fetch('https://api.airtable.com/v0/appyrql0f5rr5lzwU/Athletes?sort%5B0%5D%5Bfield%5D=Created%20Time&sort%5B0%5D%5Bdirection%5D=desc&maxRecords=1', {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': 'Bearer patusDgjA5BbLrg9N.e6c5fb0fc51f2dff0168570446c43b0e5e38311e4b664b0762794c06d7c9a017',
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.records && data.records.length > 0) {
+                                const athleteRecord = data.records[0];
+                                const athleteID = athleteRecord.fields.AthleteID;  // Retrieve the custom auto-incremented athleteID
+
+                                console.log('Most recent athlete record found:', athleteID);
+
+                                if (athleteID) {
+                                    // Trigger the Make Webhook with the custom athleteID
+                                    console.log('Triggering Make Webhook');
+                                    fetch('https://hook.us1.make.com/ncy8fqllddrielx4j4dpsitk4t91zxq5', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify({
+                                            athleteID: athleteID
+                                        })
+                                    })
+                                    .then(response => response.text())
+                                    .then(data => {
+                                        console.log('Make scenario triggered successfully:', data);
+                                    })
+                                    .catch(error => {
+                                        console.error('Error triggering Make scenario:', error);
+                                    });
+                                } else {
+                                    console.error('AthleteID not found in the response.');
+                                }
+                            } else {
+                                console.error('No recent athlete record found.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching the most recent athlete record:', error);
+                        });
+                    }, 3000); // 3-second delay
+                } else {
+                    console.error('Failed to add athlete record:', data);
+                }
             })
             .catch(error => {
-                console.error('Error submitting data:', error);
+                console.error('An error occurred while adding athlete record:', error);
             });
         };
 
