@@ -323,24 +323,96 @@
 
         // Fetch and display plans
         window.onload = function() {
-            // Fetch data from server endpoint
-            fetch('get-dashboard-data', { // Replace with your server endpoint
+            // Retrieve athlete details from the most recent record
+            fetch('https://api.airtable.com/v0/appyrql0f5rr5lzwU/Athletes/Athletes?sort%5B0%5D%5Bfield%5D=Created%20Time&sort%5B0%5D%5Bdirection%5D=desc&maxRecords=1', {
                 method: 'GET',
                 headers: {
+                    'Authorization': 'Bearer patusDgjA5BbLrg9N.e6c5fb0fc51f2dff0168570446c43b0e5e38311e4b664b0762794c06d7c9a017',
                     'Content-Type': 'application/json'
                 }
             })
             .then(response => response.json())
             .then(data => {
-                // Use data to populate your dashboard
-                displayNutritionPlan(data.nutritionPlans);
-                displayExercisePlan(data.exercisePlans, data.cardioPlans);
-                displaySupplementPlan(data.supplementPlans);
+                if (data.records && data.records.length > 0) {
+                    const athleteID = data.records[0].fields.AthleteID;  // Get the AthleteID
+                    console.log("Athlete ID found:", athleteID);
+
+                    // Fetch Nutrition, Exercise, Cardio, and Supplement data for Day 1
+                    fetchPlans(athleteID, 1); // Fetch plans for Day 1
+                } else {
+                    console.error('No recent athlete record found.');
+                }
             })
             .catch(error => {
-                console.error('Error fetching dashboard data:', error);
+                console.error('Error fetching the most recent athlete record:', error);
             });
         };
+
+        // Function to fetch plans (Nutrition, Exercise, Cardio, Supplements) from Airtable
+        function fetchPlans(athleteID, day) {
+            const baseURL = 'https://api.airtable.com/v0/appyrql0f5rr5lzwU/';
+            const apiKey = 'patusDgjA5BbLrg9N.e6c5fb0fc51f2dff0168570446c43b0e5e38311e4b664b0762794c06d7c9a017';
+
+            console.log("Fetching plans for AthleteID:", athleteID, "on Day:", day);
+
+            // Fetch Nutrition Plan
+            fetch(`${baseURL}Nutrition%20Plans?filterByFormula=AND({AthleteID}='${athleteID}', {Day}=${day})`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Nutrition Plan fetched:", data.records);
+                displayNutritionPlan(data.records);
+            })
+            .catch(error => console.error('Error fetching Nutrition Plan:', error));
+
+            // Fetch Exercise Plan
+            const exercisePlanPromise = fetch(`${baseURL}Exercise%20Plan%20Details?filterByFormula=AND({AthleteID}='${athleteID}', {Day}=${day})`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json());
+
+            // Fetch Cardio Plan
+            const cardioPlanPromise = fetch(`${baseURL}Cardio%20Plan%20Details?filterByFormula=AND({AthleteID}='${athleteID}', {Day}=${day})`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => response.json());
+
+            // Once both promises resolve, display the data
+            Promise.all([exercisePlanPromise, cardioPlanPromise])
+                .then(results => {
+                    const [exerciseData, cardioData] = results;
+                    console.log("Exercise Plan fetched:", exerciseData.records);
+                    console.log("Cardio Plan fetched:", cardioData.records);
+                    displayExercisePlan(exerciseData.records, cardioData.records);
+                })
+                .catch(error => console.error('Error fetching Exercise or Cardio Plans:', error));
+
+            // Fetch Supplement Plan
+            fetch(`${baseURL}Supplement%20Plans?filterByFormula=AND({AthleteID}='${athleteID}', {Day}=${day})`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Supplement Plan fetched:", data.records);
+                displaySupplementPlan(data.records);
+            })
+            .catch(error => console.error('Error fetching Supplement Plan:', error));
+        }
 
         // Function to display Nutrition Plan
         function displayNutritionPlan(records) {
@@ -352,34 +424,60 @@
 
             // Sort the records based on the defined meal order
             records.sort((a, b) => {
-                const mealA = a.mealType.toLowerCase();
-                const mealB = b.mealType.toLowerCase();
+                const mealA = a.fields.MealType.toLowerCase();
+                const mealB = b.fields.MealType.toLowerCase();
                 return mealOrder.indexOf(mealA) - mealOrder.indexOf(mealB);
             });
 
             // Display sorted records
             records.forEach(record => {
                 let mealIcon = '';
-                if (record.mealType.toLowerCase() === 'breakfast') {
+                if (record.fields.MealType.toLowerCase() === 'breakfast') {
                     mealIcon = `<svg width="37" height="32" viewBox="0 0 37 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- SVG content for breakfast icon -->
-                    </svg>`;
-                } else if (record.mealType.toLowerCase() === 'lunch') {
+                    <rect x="1" y="23.5" width="6.3" height="1" rx="0.5" fill="#D2DAE4"/>
+                    <rect x="29.7002" y="23.5" width="6.3" height="1" rx="0.5" fill="#D2DAE4"/>
+                    <rect x="26.0596" y="16.374" width="6.3" height="1" rx="0.5" transform="rotate(-44.7765 26.0596 16.374)" fill="#D2DAE4"/>
+                    <rect x="10.4551" y="17.1621" width="6.3" height="1" rx="0.5" transform="rotate(-135 10.4551 17.1621)" fill="#D2DAE4"/>
+                    <path d="M18.8536 0.646447C18.6583 0.451184 18.3417 0.451184 18.1464 0.646447L14.9645 3.82843C14.7692 4.02369 14.7692 4.34027 14.9645 4.53553C15.1597 4.7308 15.4763 4.7308 15.6716 4.53553L18.5 1.70711L21.3284 4.53553C21.5237 4.7308 21.8403 4.7308 22.0355 4.53553C22.2308 4.34027 22.2308 4.02369 22.0355 3.82843L18.8536 0.646447ZM18 14C18 14.2761 18.2239 14.5 18.5 14.5C18.7761 14.5 19 14.2761 19 14L18 14ZM18 1L18 14L19 14L19 1L18 1Z" fill="#D2DAE4"/>
+                    <mask id="path-6-inside-1_1403_3643" fill="white">
+                    <path d="M26 24.5C26 22.5109 25.2098 20.6032 23.8033 19.1967C22.3968 17.7902 20.4891 17 18.5 17C16.5109 17 14.6032 17.7902 13.1967 19.1967C11.7902 20.6032 11 22.5109 11 24.5L18.5 24.5H26Z"/>
+                    </mask>
+                    <path d="M26 24.5C26 22.5109 25.2098 20.6032 23.8033 19.1967C22.3968 17.7902 20.4891 17 18.5 17C16.5109 17 14.6032 17.7902 13.1967 19.1967C11.7902 20.6032 11 22.5109 11 24.5L18.5 24.5H26Z" stroke="#D2DAE4" stroke-width="2" mask="url(#path-6-inside-1_1403_3643)"/>
+                    <path d="M1 29.5H36" stroke="#D2DAE4" stroke-linecap="round"/>
+                </svg>`;
+                } else if (record.fields.MealType.toLowerCase() === 'lunch') {
                     mealIcon = `<svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- SVG content for lunch icon -->
-                    </svg>`;
-                } else if (record.mealType.toLowerCase() === 'dinner') {
+                    <rect y="16" width="6.3" height="1" rx="0.5" fill="#D2DAE4"/>
+                    <rect x="26.7002" y="16" width="6.3" height="1" rx="0.5" fill="#D2DAE4"/>
+                    <rect x="17" width="6.3" height="1" rx="0.5" transform="rotate(90 17 0)" fill="#D2DAE4"/>
+                    <rect x="17" y="26.7002" width="6.3" height="1" rx="0.5" transform="rotate(90 17 26.7002)" fill="#D2DAE4"/>
+                    <rect x="28.5205" y="5.18652" width="6.3" height="1" rx="0.5" transform="rotate(135 28.5205 5.18652)" fill="#D2DAE4"/>
+                    <rect x="9.64062" y="24.0664" width="6.3" height="1" rx="0.5" transform="rotate(135 9.64062 24.0664)" fill="#D2DAE4"/>
+                    <rect x="5.18555" y="4.47949" width="6.3" height="1" rx="0.5" transform="rotate(45 5.18555 4.47949)" fill="#D2DAE4"/>
+                    <rect x="24.0654" y="23.3594" width="6.3" height="1" rx="0.5" transform="rotate(45 24.0654 23.3594)" fill="#D2DAE4"/>
+                    <circle cx="16.5" cy="16" r="5.5" stroke="#D2DAE4"/>
+                </svg>`;
+                } else if (record.fields.MealType.toLowerCase() === 'dinner') {
                     mealIcon = `<svg width="37" height="32" viewBox="0 0 37 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- SVG content for dinner icon -->
-                    </svg>`;
+                    <rect x="1" y="23.5" width="6.3" height="1" rx="0.5" fill="#D2DAE4"/>
+                    <rect x="29.7002" y="23.5" width="6.3" height="1" rx="0.5" fill="#D2DAE4"/>
+                    <rect x="26.0596" y="16.374" width="6.3" height="1" rx="0.5" transform="rotate(-44.7765 26.0596 16.374)" fill="#D2DAE4"/>
+                    <rect x="10.4551" y="17.1621" width="6.3" height="1" rx="0.5" transform="rotate(-135 10.4551 17.1621)" fill="#D2DAE4"/>
+                    <path d="M18.1464 14.3536C18.3417 14.5488 18.6583 14.5488 18.8536 14.3536L22.0355 11.1716C22.2308 10.9763 22.2308 10.6597 22.0355 10.4645C21.8403 10.2692 21.5237 10.2692 21.3284 10.4645L18.5 13.2929L15.6716 10.4645C15.4763 10.2692 15.1597 10.2692 14.9645 10.4645C14.7692 10.6597 14.7692 10.9763 14.9645 11.1716L18.1464 14.3536ZM19 1C19 0.723857 18.7761 0.5 18.5 0.5C18.2239 0.5 18 0.723857 18 1L19 1ZM19 14L19 1L18 1L18 14L19 14Z" fill="#D2DAE4"/>
+                    <mask id="path-6-inside-1_1403_3685" fill="white">
+                    <path d="M26 24.5C26 22.5109 25.2098 20.6032 23.8033 19.1967C22.3968 17.7902 20.4891 17 18.5 17C16.5109 17 14.6032 17.7902 13.1967 19.1967C11.7902 20.6032 11 22.5109 11 24.5L18.5 24.5H26Z"/>
+                    </mask>
+                    <path d="M26 24.5C26 22.5109 25.2098 20.6032 23.8033 19.1967C22.3968 17.7902 20.4891 17 18.5 17C16.5109 17 14.6032 17.7902 13.1967 19.1967C11.7902 20.6032 11 22.5109 11 24.5L18.5 24.5H26Z" stroke="#D2DAE4" stroke-width="2" mask="url(#path-6-inside-1_1403_3685)"/>
+                    <path d="M1 29.5H36" stroke="#D2DAE4" stroke-linecap="round"/>
+                </svg>`;
                 }
 
                 nutritionContainer.innerHTML += `
                     <li>
                         <span>${mealIcon}</span>
                         <div>
-                            <strong>${record.mealName}</strong><br>
-                            <span class="description">${record.mealDescription}</span>
+                            <strong>${record.fields['Meal Name']}</strong><br>
+                            <span class="description">${record.fields['Meal Description']}</span>
                         </div>
                     </li>
                 `;
@@ -396,25 +494,35 @@
 
             combinedRecords.forEach(record => {
                 let icon = '';
-                if (record.type === 'Weights') {
+                if (record.fields.Weights) {
                     icon = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- SVG content for weights icon -->
-                    </svg>`;
-                } else if (record.type === 'Cardio') {
+                    <path d="M12.3337 11.667H7.66699C7.40178 11.667 7.14742 11.7723 6.95989 11.9599C6.77235 12.1474 6.66699 12.4018 6.66699 12.667V27.3337C6.66699 27.465 6.69286 27.595 6.74311 27.7163C6.79337 27.8377 6.86703 27.9479 6.95989 28.0408C7.05274 28.1336 7.16298 28.2073 7.28431 28.2575C7.40563 28.3078 7.53567 28.3337 7.66699 28.3337H12.3337C12.465 28.3337 12.595 28.3078 12.7163 28.2575C12.8377 28.2073 12.9479 28.1336 13.0408 28.0408C13.1336 27.9479 13.2073 27.8377 13.2575 27.7163C13.3078 27.595 13.3337 27.465 13.3337 27.3337V12.667C13.3337 12.4018 13.2283 12.1474 13.0408 11.9599C12.8532 11.7723 12.5989 11.667 12.3337 11.667ZM32.3337 11.667H27.667C27.4018 11.667 27.1474 11.7723 26.9599 11.9599C26.7723 12.1474 26.667 12.4018 26.667 12.667V27.3337C26.667 27.465 26.6929 27.595 26.7431 27.7163C26.7934 27.8377 26.867 27.9479 26.9599 28.0408C27.0527 28.1336 27.163 28.2073 27.2843 28.2575C27.4056 28.3078 27.5357 28.3337 27.667 28.3337H32.3337C32.465 28.3337 32.595 28.3078 32.7163 28.2575C32.8377 28.2073 32.9479 28.1336 33.0408 28.0408C33.1336 27.9479 33.2073 27.8377 33.2575 27.7163C33.3078 27.595 33.3337 27.465 33.3337 27.3337V12.667C33.3337 12.4018 33.2283 12.1474 33.0408 11.9599C32.8532 11.7723 32.5989 11.667 32.3337 11.667Z" stroke="#D2DAE4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M13.3337 20H26.667M1.66699 24V16C1.66699 15.7348 1.77235 15.4804 1.95989 15.2929C2.14742 15.1054 2.40178 15 2.66699 15H5.66699C5.93221 15 6.18656 15.1054 6.3741 15.2929C6.56164 15.4804 6.66699 15.7348 6.66699 16V24C6.66699 24.2652 6.56164 24.5196 6.3741 24.7071C6.18656 24.8946 5.93221 25 5.66699 25H2.66699C2.40178 25 2.14742 24.8946 1.95989 24.7071C1.77235 24.5196 1.66699 24.2652 1.66699 24ZM38.3337 24V16C38.3337 15.7348 38.2283 15.4804 38.0408 15.2929C37.8532 15.1054 37.5989 15 37.3337 15H34.3337C34.0684 15 33.8141 15.1054 33.6266 15.2929C33.439 15.4804 33.3337 15.7348 33.3337 16V24C33.3337 24.2652 33.439 24.5196 33.6266 24.7071C33.8141 24.8946 34.0684 25 34.3337 25H37.3337C37.5989 25 37.8532 24.8946 38.0408 24.7071C38.2283 24.5196 38.3337 24.2652 38.3337 24Z" stroke="#D2DAE4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`;
+                    exerciseContainer.innerHTML += `
+                        <li>
+                            <span>${icon}</span>
+                            <div>
+                                <strong>${record.fields.Weights}</strong><br>
+                                <span class="description">${record.fields['Weight Explanation']}</span>
+                            </div>
+                        </li>
+                    `;
+                } else if (record.fields.Cardio) {
                     icon = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- SVG content for cardio icon -->
-                    </svg>`;
+                    <path d="M21.0211 13.7783L15.5078 20.67L22.3995 27.5617L18.9545 35.145M24.9995 11.6667C25.8835 11.6667 26.7314 11.3155 27.3565 10.6904C27.9816 10.0652 28.3328 9.21739 28.3328 8.33333C28.3328 7.44928 27.9816 6.60143 27.3565 5.97631C26.7314 5.35119 25.8835 5 24.9995 5C24.1154 5 23.2676 5.35119 22.6425 5.97631C22.0173 6.60143 21.6661 7.44928 21.6661 8.33333C21.6661 9.21739 22.0173 10.0652 22.6425 10.6904C23.2676 11.3155 24.1154 11.6667 24.9995 11.6667Z" stroke="#D2DAE4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.6833 15.847L16.3283 10.332L21.0216 13.7787L25.8466 19.292H32.0499M14.8199 26.1837L12.7516 27.562H7.23828" stroke="#D2DAE4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`;
+                    exerciseContainer.innerHTML += `
+                        <li>
+                            <span>${icon}</span>
+                            <div>
+                                <strong>${record.fields.Cardio}</strong><br>
+                                <span class="description">${record.fields['Cardio Explanation']}</span>
+                            </div>
+                        </li>
+                    `;
                 }
-
-                exerciseContainer.innerHTML += `
-                    <li>
-                        <span>${icon}</span>
-                        <div>
-                            <strong>${record.exerciseName}</strong><br>
-                            <span class="description">${record.explanation}</span>
-                        </div>
-                    </li>
-                `;
             });
         }
 
@@ -425,26 +533,29 @@
 
             records.forEach(record => {
                 let supplementIcon = '';
-                if (record.category === 'Cognitive') {
+                if (record.fields['Category (Primary)'] === 'Cognitive') {
                     supplementIcon = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- SVG content for cognitive icon -->
-                    </svg>`;
-                } else if (record.category === 'Vitality') {
+                    <path d="M13.8096 19.2301C15.8496 19.2301 16.6462 17.4884 16.6462 15.5459M19.4371 21.8817C19.4371 20.5401 20.1537 18.7451 22.4679 18.7451" stroke="#D2DAE4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22.4681 25.5029C22.4681 25.5029 22.5656 31.7762 17.7156 31.7762H7.91314C3.6098 31.7762 3.33564 25.5029 7.91314 25.5029C3.6098 25.5029 3.33564 19.2295 7.91314 19.2295C3.0373 14.8979 9.03314 11.1262 11.7948 14.0395C8.92897 10.0812 15.004 7.87788 17.094 11.052C16.8481 7.87788 19.9881 7.30538 22.9006 9.68538L22.6423 9.89371C24.0598 8.47538 28.719 9.24704 28.719 13.0687L27.394 14.0395C31.4931 9.93788 35.8773 16.5412 32.469 18.9562H33.2656C36.1015 18.9562 36.4248 25.5029 32.469 25.5029H15.8498" stroke="#D2DAE4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22.6416 9.89453C21.1999 11.3379 22.4732 11.7929 20.0916 14.1762M7.91406 19.2295H13.8099M7.91406 25.5029H10.1524M19.4374 25.5029V21.8812M33.2657 18.9562H28.1407" stroke="#D2DAE4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`;
+                } else if (record.fields['Category (Primary)'] === 'Vitality') {
                     supplementIcon = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- SVG content for vitality icon -->
-                    </svg>`;
-                } else if (record.category === 'Longevity') {
+                    <path d="M21.0211 13.7783L15.5078 20.67L22.3995 27.5617L18.9545 35.145M24.9995 11.6667C25.8835 11.6667 26.7314 11.3155 27.3565 10.6904C27.9816 10.0652 28.3328 9.21739 28.3328 8.33333C28.3328 7.44928 27.9816 6.60143 27.3565 5.97631C26.7314 5.35119 25.8835 5 24.9995 5C24.1154 5 23.2676 5.35119 22.6425 5.97631C22.0173 6.60143 21.6661 7.44928 21.6661 8.33333C21.6661 9.21739 22.0173 10.0652 22.6425 10.6904C23.2676 11.3155 24.1154 11.6667 24.9995 11.6667Z" stroke="#D2DAE4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M10.6833 15.847L16.3283 10.332L21.0216 13.7787L25.8466 19.292H32.0499M14.8199 26.1837L12.7516 27.562H7.23828" stroke="#D2DAE4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`;
+                } else if (record.fields['Category (Primary)'] === 'Longevity') {
                     supplementIcon = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- SVG content for longevity icon -->
-                    </svg>`;
+                    <path d="M5 20H12.5L15 10L21.6667 30L25 15L27.5 20H35" stroke="#D2DAE4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`;
                 }
 
                 supplementContainer.innerHTML += `
                     <li>
                         <span>${supplementIcon}</span>
                         <div>
-                            <strong>${record.supplementName}</strong><br>
-                            <span class="description">${record.reason}</span>
+                            <strong>${record.fields['Supplement Name']}</strong><br>
+                            <span class="description">${record.fields.Reason}</span>
                         </div>
                     </li>
                 `;
