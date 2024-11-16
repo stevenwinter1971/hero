@@ -157,7 +157,7 @@
         footer {
             background-color: #000000;
             padding: 20px;
-            text-align: center;
+            text-align: left;
         }
         footer .footer-logo img {
             height: 40px;
@@ -183,11 +183,7 @@
                 <img src="assets/Hero_logo.svg" alt="Hero Logo">
             </a>
         </div>
-        <div class="menu">
-            <a href="clinical-solutions.html">Clinical Solutions</a>
-            <a href="consumer-solutions.html">Consumer Solutions</a>
-            <a href="#">Log In</a>
-        </div>
+
     </nav>
 
     <!-- Main Content -->
@@ -247,17 +243,7 @@
                 <img src="assets/Hero_logo.svg" alt="Hero Logo">
             </a>
         </div>
-        <div class="social-icons">
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                <img src="assets/x.svg" class="icon-x" alt="X Icon">
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                <img src="assets/instagram.svg" class="icon-instagram" alt="Instagram Icon">
-            </a>
-            <a href="https://www.linkedin.com/company/heroicinnovations/" target="_blank" rel="noopener noreferrer">
-                <img src="assets/linkedin.svg" class="icon-linkedin" alt="LinkedIn Icon">
-            </a>
-        </div>
+       
     </footer>
 
     <!-- JavaScript -->
@@ -324,7 +310,7 @@
         // Fetch and display plans
         window.onload = function() {
             // Retrieve athlete details from the most recent record
-            fetch('https://api.airtable.com/v0/appyrql0f5rr5lzwU/Athletes/Athletes?sort%5B0%5D%5Bfield%5D=Created%20Time&sort%5B0%5D%5Bdirection%5D=desc&maxRecords=1', {
+            fetch('https://api.airtable.com/v0/appyrql0f5rr5lzwU/Athletes?sort%5B0%5D%5Bfield%5D=Created%20Time&sort%5B0%5D%5Bdirection%5D=desc&maxRecords=1', {
                 method: 'GET',
                 headers: {
                     'Authorization': 'Bearer patusDgjA5BbLrg9N.e6c5fb0fc51f2dff0168570446c43b0e5e38311e4b664b0762794c06d7c9a017',
