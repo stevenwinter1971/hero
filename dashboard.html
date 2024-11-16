@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <!-- Include Highcharts library -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <!-- Styles -->
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Montserrat', 'Roboto', sans-serif;
+            background-color: #000000;
+            color: #D2DAE4;
+            margin: 0;
+            padding: 0;
+        }
+        /* Navbar Styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #000000;
+            padding: 10px 20px;
+        }
+        nav .logo img {
+            height: 40px;
+        }
+        nav .menu a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+        /* Container for Donut Charts */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 120px;
+            margin-top: 40px;
+            margin-bottom: 50px;
+            height: 143px;
+        }
+        .donut-label {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 100%;
+        }
+        .donut-container {
+            margin-left: 10px;
+            width: 75px;
+            height: 75px;
+        }
+        /* Date Block */
+        .date-block {
+            position: absolute;
+            top: -16%;
+            left: 11%;
+            text-align: left;
+            font-family: 'Montserrat', 'Roboto', sans-serif;
+            font-weight: 200;
+        }
+        .date-block h1 {
+            font-size: 30px;
+            margin: 0;
+            font-weight: 300;
+            color: #D2DAE4;
+        }
+        .date-block h2 {
+            font-size: 14px;
+            margin: 0;
+            font-weight: 100;
+            color: #ADACAC;
+            letter-spacing: 0.5px;
+        }
+        /* Plans Container */
+        .glass-overlay {
+            background: rgba(255, 255, 255, 0.01);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+            border-radius: 20px;
+            padding: 20px 10px;
+            width: 90%;
+            max-width: 1200px;
+            color: #ffffff;
+            position: relative;
+            margin: 0 auto;
+            height: auto;
+            overflow: visible;
+            border: 1px solid rgba(210, 218, 228, 0.2);
+        }
+        .plans-container {
+            display: flex;
+            flex-direction: column;
+            gap: 41px;
+            width: 95%;
+            margin: 0 auto;
+        }
+        .plan {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+            height: auto;
+        }
+        .plan ul {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0;
+            list-style-type: none;
+            width: 100%;
+            margin: 0;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+        .plan li {
+            flex: 1 1 30%;
+            margin-bottom: 41px;
+            display: flex;
+            align-items: flex-start;
+            max-width: 30%;
+            box-sizing: border-box;
+        }
+        .plan h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-family: 'Montserrat', 'Roboto', sans-serif;
+            font-weight: 200;
+        }
+        .plan strong {
+            font-family: 'Montserrat', 'Roboto', sans-serif;
+            font-weight: 600;
+            color: #D2DAE4;
+        }
+        .plan .description {
+            font-family: 'Montserrat', 'Roboto', sans-serif;
+            font-weight: 200;
+            font-size: 16px;
+            color: #D2DAE4;
+            line-height: 1.5;
+            margin-top: 5px;
+        }
+        /* Icons */
+        .plan li span {
+            font-size: 20px;
+            color: #D2DAE4;
+            margin-right: 30px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        /* Footer Styles */
+        footer {
+            background-color: #000000;
+            padding: 20px;
+            text-align: center;
+        }
+        footer .footer-logo img {
+            height: 40px;
+        }
+        .social-icons {
+            margin-top: 10px;
+        }
+        .social-icons a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .social-icons img {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/Hero_logo.svg" alt="Hero Logo">
+            </a>
+        </div>
+        <div class="menu">
+            <a href="clinical-solutions.html">Clinical Solutions</a>
+            <a href="consumer-solutions.html">Consumer Solutions</a>
+            <a href="#">Log In</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <!-- Donut Charts -->
+    <div class="container">
+        <div class="donut-label">
+            <span>Cognitive</span>
+            <div id="chartContainerCognitive" class="donut-container"></div>
+        </div>
+        <div class="donut-label">
+            <span>Vitality</span>
+            <div id="chartContainerVitality" class="donut-container"></div>
+        </div>
+        <div class="donut-label">
+            <span>Longevity</span>
+            <div id="chartContainerLongevity" class="donut-container"></div>
+        </div>
+        <div class="donut-label">
+            <span>Systemic Balance</span>
+            <div id="chartContainerSystemicBalance" class="donut-container"></div>
+        </div>
+    </div>
+
+    <!-- Date Block -->
+    <div class="date-block">
+        <h1></h1> <!-- Day will be dynamically set here -->
+        <h2></h2> <!-- Date will be dynamically set here -->
+    </div>
+
+    <!-- Glass Effect Overlay -->
+    <div class="glass-overlay">
+        <div class="plans-container">
+            <!-- Nutrition Section -->
+            <div class="plan nutrition-plan">
+                <h3>Nutrition</h3>
+                <ul></ul> <!-- Data will be inserted here -->
+            </div>
+
+            <!-- Exercise Section -->
+            <div class="plan exercise-plan">
+                <h3>Exercise</h3>
+                <ul></ul> <!-- Data will be inserted here -->
+            </div>
+
+            <!-- Supplements Section -->
+            <div class="plan supplement-plan">
+                <h3>Supplements</h3>
+                <ul></ul> <!-- Data will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            <a href="index.html">
+                <img src="assets/Hero_logo.svg" alt="Hero Logo">
+            </a>
+        </div>
+        <div class="social-icons">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <img src="assets/x.svg" class="icon-x" alt="X Icon">
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <img src="assets/instagram.svg" class="icon-instagram" alt="Instagram Icon">
+            </a>
+            <a href="https://www.linkedin.com/company/heroicinnovations/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/linkedin.svg" class="icon-linkedin" alt="LinkedIn Icon">
+            </a>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Create Donut Charts
+        function createDonut(containerId, color, percentage) {
+            Highcharts.chart(containerId, {
+                chart: {
+                    type: 'pie',
+                    backgroundColor: 'transparent',
+                    height: 75,
+                    width: 75,
+                },
+                title: {
+                    text: '',
+                },
+                plotOptions: {
+                    pie: {
+                        innerSize: '80%',
+                        startAngle: 180,
+                        dataLabels: {
+                            enabled: false
+                        },
+                        borderWidth: 0,
+                    }
+                },
+                series: [{
+                    name: containerId,
+                    data: [{
+                        y: percentage, 
+                        color: color
+                    }, {
+                        y: 100 - percentage, 
+                        color: '#444444'
+                    }]
+                }],
+                credits: {
+                    enabled: false
+                }
+            });
+        }
+
+        // Example data for donuts (you can replace these with dynamic data)
+        createDonut('chartContainerCognitive', '#00D8FF', 85);
+        createDonut('chartContainerVitality', '#FFA500', 70);
+        createDonut('chartContainerLongevity', '#32CD32', 75);
+        createDonut('chartContainerSystemicBalance', '#FF00FF', 88);
+
+        // Set Date and Day
+        document.addEventListener('DOMContentLoaded', function() {
+            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const today = new Date();
+            const dayName = daysOfWeek[today.getDay()];
+            const formattedDate = today.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+
+            document.querySelector('.date-block h1').innerText = dayName;
+            document.querySelector('.date-block h2').innerText = formattedDate;
+        });
+
+        // Fetch and display plans
+        window.onload = function() {
+            // Fetch data from server endpoint
+            fetch('get-dashboard-data', { // Replace with your server endpoint
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Use data to populate your dashboard
+                displayNutritionPlan(data.nutritionPlans);
+                displayExercisePlan(data.exercisePlans, data.cardioPlans);
+                displaySupplementPlan(data.supplementPlans);
+            })
+            .catch(error => {
+                console.error('Error fetching dashboard data:', error);
+            });
+        };
+
+        // Function to display Nutrition Plan
+        function displayNutritionPlan(records) {
+            const nutritionContainer = document.querySelector('.plans-container .nutrition-plan ul');
+            nutritionContainer.innerHTML = '';
+
+            // Define the desired order of meals
+            const mealOrder = ['breakfast', 'lunch', 'dinner'];
+
+            // Sort the records based on the defined meal order
+            records.sort((a, b) => {
+                const mealA = a.mealType.toLowerCase();
+                const mealB = b.mealType.toLowerCase();
+                return mealOrder.indexOf(mealA) - mealOrder.indexOf(mealB);
+            });
+
+            // Display sorted records
+            records.forEach(record => {
+                let mealIcon = '';
+                if (record.mealType.toLowerCase() === 'breakfast') {
+                    mealIcon = `<svg width="37" height="32" viewBox="0 0 37 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- SVG content for breakfast icon -->
+                    </svg>`;
+                } else if (record.mealType.toLowerCase() === 'lunch') {
+                    mealIcon = `<svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- SVG content for lunch icon -->
+                    </svg>`;
+                } else if (record.mealType.toLowerCase() === 'dinner') {
+                    mealIcon = `<svg width="37" height="32" viewBox="0 0 37 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- SVG content for dinner icon -->
+                    </svg>`;
+                }
+
+                nutritionContainer.innerHTML += `
+                    <li>
+                        <span>${mealIcon}</span>
+                        <div>
+                            <strong>${record.mealName}</strong><br>
+                            <span class="description">${record.mealDescription}</span>
+                        </div>
+                    </li>
+                `;
+            });
+        }
+
+        // Function to display Exercise Plan
+        function displayExercisePlan(exerciseRecords, cardioRecords) {
+            const exerciseContainer = document.querySelector('.plans-container .exercise-plan ul');
+            exerciseContainer.innerHTML = '';
+
+            // Combine exercise and cardio records
+            const combinedRecords = [...exerciseRecords, ...cardioRecords];
+
+            combinedRecords.forEach(record => {
+                let icon = '';
+                if (record.type === 'Weights') {
+                    icon = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- SVG content for weights icon -->
+                    </svg>`;
+                } else if (record.type === 'Cardio') {
+                    icon = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- SVG content for cardio icon -->
+                    </svg>`;
+                }
+
+                exerciseContainer.innerHTML += `
+                    <li>
+                        <span>${icon}</span>
+                        <div>
+                            <strong>${record.exerciseName}</strong><br>
+                            <span class="description">${record.explanation}</span>
+                        </div>
+                    </li>
+                `;
+            });
+        }
+
+        // Function to display Supplement Plan
+        function displaySupplementPlan(records) {
+            const supplementContainer = document.querySelector('.plans-container .supplement-plan ul');
+            supplementContainer.innerHTML = '';
+
+            records.forEach(record => {
+                let supplementIcon = '';
+                if (record.category === 'Cognitive') {
+                    supplementIcon = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- SVG content for cognitive icon -->
+                    </svg>`;
+                } else if (record.category === 'Vitality') {
+                    supplementIcon = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- SVG content for vitality icon -->
+                    </svg>`;
+                } else if (record.category === 'Longevity') {
+                    supplementIcon = `<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- SVG content for longevity icon -->
+                    </svg>`;
+                }
+
+                supplementContainer.innerHTML += `
+                    <li>
+                        <span>${supplementIcon}</span>
+                        <div>
+                            <strong>${record.supplementName}</strong><br>
+                            <span class="description">${record.reason}</span>
+                        </div>
+                    </li>
+                `;
+            });
+        }
+    </script>
+</body>
+</html>
