@@ -17,13 +17,29 @@
         }
         /* Navbar Styles */
         nav {
-            /* Same as previous page */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #000000;
+            padding: 10px 20px;
+        }
+        nav .logo img {
+            height: 40px;
+        }
+        nav .menu a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
         }
         /* Content Styles */
         .container {
             max-width: 800px;
             margin: 50px auto;
             text-align: center;
+        }
+        .container h1 {
+            margin-bottom: 30px;
         }
         .options-grid {
             display: flex;
@@ -34,6 +50,7 @@
         .option {
             width: 150px;
             cursor: pointer;
+            text-align: center;
         }
         .option img {
             width: 100%;
@@ -52,17 +69,53 @@
             margin-top: 30px;
         }
         .next-button {
-            /* Same as previous page */
+            background-color: #50BF2C;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+        .next-button:hover {
+            background-color: #45a82d;
         }
         /* Footer Styles */
         footer {
-            /* Same as previous page */
+            background-color: #000000;
+            padding: 20px;
+            text-align: center;
+        }
+        footer .footer-logo img {
+            height: 40px;
+        }
+        .social-icons {
+            margin-top: 10px;
+        }
+        .social-icons a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+        .social-icons img {
+            width: 24px;
+            height: 24px;
         }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <!-- Same as previous page -->
+    <nav>
+        <div class="logo">
+            <a href="index.html">
+                <img src="assets/Hero_logo.svg" alt="Hero Logo">
+            </a>
+        </div>
+        <div class="menu">
+            <a href="clinical-solutions.html">Clinical Solutions</a>
+            <a href="consumer-solutions.html">Consumer Solutions</a>
+            <a href="#">Log In</a>
+        </div>
+    </nav>
 
     <!-- Main Content -->
     <div class="container">
@@ -73,7 +126,34 @@
                 <img src="assets/general-fitness.jpg" alt="General Fitness">
                 <p>General Fitness</p>
             </div>
-            <!-- Add other sports similarly -->
+            <div class="option sqs-image-content" data-sport="Golf">
+                <img src="assets/golf.jpg" alt="Golf">
+                <p>Golf</p>
+            </div>
+            <div class="option sqs-image-content" data-sport="Basketball">
+                <img src="assets/basketball.jpg" alt="Basketball">
+                <p>Basketball</p>
+            </div>
+            <div class="option sqs-image-content" data-sport="Running">
+                <img src="assets/running.jpg" alt="Running">
+                <p>Running</p>
+            </div>
+            <div class="option sqs-image-content" data-sport="Brazilian Jiu Jitsu">
+                <img src="assets/bjj.jpg" alt="Brazilian Jiu Jitsu">
+                <p>Brazilian Jiu Jitsu</p>
+            </div>
+            <div class="option sqs-image-content" data-sport="Cycling">
+                <img src="assets/cycling.jpg" alt="Cycling">
+                <p>Cycling</p>
+            </div>
+            <div class="option sqs-image-content" data-sport="Soccer">
+                <img src="assets/soccer.jpg" alt="Soccer">
+                <p>Soccer</p>
+            </div>
+            <div class="option sqs-image-content" data-sport="Tennis">
+                <img src="assets/tennis.jpg" alt="Tennis">
+                <p>Tennis</p>
+            </div>
         </div>
         <div class="next-button-container">
             <button class="next-button">Next</button>
@@ -81,7 +161,24 @@
     </div>
 
     <!-- Footer -->
-    <!-- Same as previous page -->
+    <footer>
+        <div class="footer-logo">
+            <a href="index.html">
+                <img src="assets/Hero_logo.svg" alt="Hero Logo">
+            </a>
+        </div>
+        <div class="social-icons">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <img src="assets/x.svg" class="icon-x" alt="X Icon">
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <img src="assets/instagram.svg" class="icon-instagram" alt="Instagram Icon">
+            </a>
+            <a href="https://www.linkedin.com/company/heroicinnovations/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/linkedin.svg" class="icon-linkedin" alt="LinkedIn Icon">
+            </a>
+        </div>
+    </footer>
 
     <!-- JavaScript -->
     <script>
