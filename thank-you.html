@@ -7,13 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <style>
         /* General Styles */
-        body {
+body {
             font-family: 'Montserrat', 'Roboto', sans-serif;
             color: #ffffff;
+            
+            /* Add the background image */
+            background-image: url('assets/backgrounds/lifting.jpg'); /* Adjust the path if necessary */
+            background-size: cover; /* Ensures the image covers the entire background */
+            background-repeat: no-repeat; /* Prevents the image from repeating */
+            background-position: center center; /* Centers the image */
+            
+            /* Fallback background color */
             background-color: #000000;
+            
             margin: 0;
             padding: 0;
-            text-align: center;
         }
         /* Navbar Styles */
         nav {
@@ -62,7 +70,7 @@
         footer {
             background-color: #000000;
             padding: 20px;
-            text-align: center;
+            text-align: left;
         }
         footer .footer-logo img {
             height: 40px;
@@ -88,11 +96,7 @@
                 <img src="assets/Hero_logo.svg" alt="Hero Logo">
             </a>
         </div>
-        <div class="menu">
-            <a href="clinical-solutions.html">Clinical Solutions</a>
-            <a href="consumer-solutions.html">Consumer Solutions</a>
-            <a href="#">Log In</a>
-        </div>
+
     </nav>
 
     <!-- Main Content -->
@@ -109,17 +113,7 @@
                 <img src="assets/Hero_logo.svg" alt="Hero Logo">
             </a>
         </div>
-        <div class="social-icons">
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                <img src="assets/x.svg" class="icon-x" alt="X Icon">
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                <img src="assets/instagram.svg" class="icon-instagram" alt="Instagram Icon">
-            </a>
-            <a href="https://www.linkedin.com/company/heroicinnovations/" target="_blank" rel="noopener noreferrer">
-                <img src="assets/linkedin.svg" class="icon-linkedin" alt="LinkedIn Icon">
-            </a>
-        </div>
+
     </footer>
 
     <!-- JavaScript -->
