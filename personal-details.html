@@ -232,16 +232,23 @@
                 return;
             }
 
-            // Combine feet and inches into a single string (e.g., 5'11")
-            const athleteHeight = `${heightFeet}'${heightInches}"`;
+            // Convert feet and inches to centimeters
+            const feetInCm = parseFloat(heightFeet) * 30.48;
+            const inchesInCm = parseFloat(heightInches) * 2.54;
+            const athleteHeight = feetInCm + inchesInCm; // Total height in cm
+
+            // Optional: Round to two decimal places
+            const athleteHeightRounded = Math.round(athleteHeight * 100) / 100;
 
             // Store data in localStorage
             localStorage.setItem("athleteName", name);
             localStorage.setItem("athleteAge", age);
             localStorage.setItem("athleteSex", sex);
             localStorage.setItem("athleteWeight", weight);
-            localStorage.setItem("athleteHeight", athleteHeight); // Combined height
+            localStorage.setItem("athleteHeight", athleteHeightRounded); // Height in cm
             localStorage.setItem("athleteFitnessLevel", fitness);
+
+            console.log('Stored athleteHeight (cm):', athleteHeightRounded);
 
             // Redirect to the next page
             window.location.href = "athletic-preference.html";
