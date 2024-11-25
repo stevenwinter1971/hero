@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Select Dietary Considerations</title>
+    <title>Select Food Allergies</title>
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <style>
@@ -56,7 +56,7 @@
             margin-bottom: 30px;
             font-size: 32px; /* Increased font size for prominence */
         }
-        /* New Preference Container Styles */
+        /* Preference Container Styles */
         .preference-container {
             background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
             padding: 30px;
@@ -153,47 +153,46 @@
                 <img src="assets/Hero_logo.svg" alt="Hero Logo">
             </a>
         </div>
-
     </nav>
 
     <!-- Main Content -->
     <div class="container">
         <!-- Preference Container with Semi-Transparent Background -->
         <div class="preference-container">
-            <h1>Select Dietary Considerations</h1>
+            <h1>Select Food Allergies</h1>
             <div class="options-grid">
-                <!-- Repeat for each dietary consideration -->
-                <div class="option sqs-image-content" data-dietary="Dairy">
-                    <img src="assets/DietaryConsiderations/Dairy.png" alt="Dairy">
-                    <p>Dairy</p>
+                <!-- Repeat for each food allergy -->
+                <div class="option sqs-image-content" data-allergy="None">
+                    <img src="assets/FoodAllergies/None.png" alt="None">
+                    <p>None</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Eggs">
-                    <img src="assets/DietaryConsiderations/Eggs.png" alt="Eggs">
+                <div class="option sqs-image-content" data-allergy="Milk (Dairy)">
+                    <img src="assets/FoodAllergies/Dairy.png" alt="Milk (Dairy)">
+                    <p>Milk (Dairy)</p>
+                </div>
+                <div class="option sqs-image-content" data-allergy="Eggs">
+                    <img src="assets/FoodAllergies/Eggs.png" alt="Eggs">
                     <p>Eggs</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Fish">
-                    <img src="assets/DietaryConsiderations/Fish.png" alt="Fish">
-                    <p>Fish</p>
-                </div>
-                <div class="option sqs-image-content" data-dietary="Nuts">
-                    <img src="assets/DietaryConsiderations/Nuts.png" alt="Nuts">
-                    <p>Nuts</p>
-                </div>
-                <div class="option sqs-image-content" data-dietary="Peanuts">
-                    <img src="assets/DietaryConsiderations/Peanuts.png" alt="Peanuts">
+                <div class="option sqs-image-content" data-allergy="Peanuts">
+                    <img src="assets/FoodAllergies/Peanuts.png" alt="Peanuts">
                     <p>Peanuts</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Shellfish">
-                    <img src="assets/DietaryConsiderations/Shellfish.png" alt="Shellfish">
-                    <p>Shellfish</p>
+                <div class="option sqs-image-content" data-allergy="Tree Nuts">
+                    <img src="assets/FoodAllergies/TreeNuts.png" alt="Tree Nuts">
+                    <p>Tree Nuts</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Soy">
-                    <img src="assets/DietaryConsiderations/Soy.png" alt="Soy">
+                <div class="option sqs-image-content" data-allergy="Soy">
+                    <img src="assets/FoodAllergies/Soy.png" alt="Soy">
                     <p>Soy</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Gluten">
-                    <img src="assets/DietaryConsiderations/Gluten.png" alt="Gluten">
-                    <p>Gluten</p>
+                <div class="option sqs-image-content" data-allergy="Wheat (Gluten)">
+                    <img src="assets/FoodAllergies/Gluten.png" alt="Wheat (Gluten)">
+                    <p>Wheat (Gluten)</p>
+                </div>
+                <div class="option sqs-image-content" data-allergy="Fish">
+                    <img src="assets/FoodAllergies/Fish.png" alt="Fish">
+                    <p>Fish</p>
                 </div>
             </div>
             <div class="next-button-container">
@@ -209,34 +208,54 @@
                 <img src="assets/Hero_logo.svg" alt="Hero Logo">
             </a>
         </div>
-
     </footer>
 
     <!-- JavaScript -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const dietaryOptions = document.querySelectorAll(".sqs-image-content");
-            let selectedDietaryConsiderations = [];
+            const allergyOptions = document.querySelectorAll(".sqs-image-content");
+            let selectedFoodAllergies = [];
 
-            dietaryOptions.forEach(option => {
+            allergyOptions.forEach(option => {
                 option.addEventListener("click", function() {
                     option.classList.toggle("selected");
-                    const selectedDietary = option.getAttribute("data-dietary");
-                    if (option.classList.contains("selected")) {
-                        selectedDietaryConsiderations.push(selectedDietary);
+                    const selectedAllergy = option.getAttribute("data-allergy");
+
+                    if (selectedAllergy === "None") {
+                        // If 'None' is selected, deselect all other options
+                        if (option.classList.contains("selected")) {
+                            allergyOptions.forEach(opt => {
+                                if (opt !== option) {
+                                    opt.classList.remove("selected");
+                                    const allergy = opt.getAttribute("data-allergy");
+                                    selectedFoodAllergies = selectedFoodAllergies.filter(a => a !== allergy);
+                                }
+                            });
+                        }
                     } else {
-                        selectedDietaryConsiderations = selectedDietaryConsiderations.filter(dietary => dietary !== selectedDietary);
+                        // If any other allergy is selected, deselect 'None'
+                        const noneOption = document.querySelector('[data-allergy="None"]');
+                        if (noneOption.classList.contains("selected")) {
+                            noneOption.classList.remove("selected");
+                            selectedFoodAllergies = selectedFoodAllergies.filter(a => a !== "None");
+                        }
                     }
-                    localStorage.setItem('selectedDietaryConsiderations', JSON.stringify(selectedDietaryConsiderations));
+
+                    if (option.classList.contains("selected")) {
+                        selectedFoodAllergies.push(selectedAllergy);
+                    } else {
+                        selectedFoodAllergies = selectedFoodAllergies.filter(a => a !== selectedAllergy);
+                    }
+                    localStorage.setItem('foodAllergies', JSON.stringify(selectedFoodAllergies));
                 });
             });
 
             document.querySelector(".next-button").addEventListener("click", function() {
-                // Proceed to thank-you page or next step
-                if (selectedDietaryConsiderations.length > 0) {
-                    window.location.href = "thank-you.html";
+                // Proceed to dietary-considerations.html
+                if (selectedFoodAllergies.length > 0) {
+                    window.location.href = "dietary-considerations.html";
                 } else {
-                    alert("Please select at least one dietary consideration to continue.");
+                    alert("Please select at least one food allergy option to continue.");
                 }
             });
         });
