@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Select Dietary Considerations</title>
+    <title>Select Food Allergies</title>
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <style>
@@ -159,40 +159,40 @@
     <div class="container">
         <!-- Preference Container with Semi-Transparent Background -->
         <div class="preference-container">
-            <h1>Select Dietary Considerations</h1>
+            <h1>Select Food Allergies</h1>
             <div class="options-grid">
-                <!-- Repeat for each dietary consideration -->
-                <div class="option sqs-image-content" data-dietary="None">
-                    <img src="assets/dietary_considerations/none.png" alt="None">
+                <!-- Repeat for each food allergy -->
+                <div class="option sqs-image-content" data-allergy="None">
+                    <img src="assets/food_allergies/none.png" alt="None">
                     <p>None</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Vegetarian">
-                    <img src="assets/dietary_considerations/vegetarian.png" alt="Vegetarian">
-                    <p>Vegetarian</p>
+                <div class="option sqs-image-content" data-allergy="Eggs">
+                    <img src="assets/food_allergies/eggs.png" alt="Eggs">
+                    <p>Eggs</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Vegan">
-                    <img src="assets/dietary_considerations/vegan.png" alt="Vegan">
-                    <p>Vegan</p>
+                <div class="option sqs-image-content" data-allergy="Fish">
+                    <img src="assets/food_allergies/fish.png" alt="Fish">
+                    <p>Fish</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Pescatarian">
-                    <img src="assets/dietary_considerations/pescatarian.png" alt="Pescatarian">
-                    <p>Pescatarian</p>
+                <div class="option sqs-image-content" data-allergy="Milk (Dairy)">
+                    <img src="assets/food_allergies/dairy.png" alt="Milk (Dairy)">
+                    <p>Milk (Dairy)</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Low-Sodium">
-                    <img src="assets/dietary_considerations/lowsodium.png" alt="Low-Sodium">
-                    <p>Low-Sodium</p>
+                <div class="option sqs-image-content" data-allergy="Peanuts">
+                    <img src="assets/food_allergies/peanuts.png" alt="Peanuts">
+                    <p>Peanuts</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Low-Carbohydrate">
-                    <img src="assets/dietary_considerations/lowcarb.png" alt="Low-Carbohydrate">
-                    <p>Low-Carbohydrate</p>
+                <div class="option sqs-image-content" data-allergy="Soy">
+                    <img src="assets/food_allergies/soy.png" alt="Soy">
+                    <p>Soy</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Halal">
-                    <img src="assets/dietary_considerations/halal.png" alt="Halal">
-                    <p>Halal</p>
+                <div class="option sqs-image-content" data-allergy="Tree Nuts">
+                    <img src="assets/food_allergies/treenuts.png" alt="Tree Nuts">
+                    <p>Tree Nuts</p>
                 </div>
-                <div class="option sqs-image-content" data-dietary="Kosher">
-                    <img src="assets/dietary_considerations/kosher.png" alt="Kosher">
-                    <p>Kosher</p>
+                <div class="option sqs-image-content" data-allergy="Wheat (Gluten)">
+                    <img src="assets/food_allergies/gluten.png" alt="Wheat (Gluten)">
+                    <p>Wheat (Gluten)</p>
                 </div>
             </div>
             <div class="next-button-container">
@@ -213,49 +213,49 @@
     <!-- JavaScript -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const dietaryOptions = document.querySelectorAll(".sqs-image-content");
-            let selectedDietaryConsiderations = [];
+            const allergyOptions = document.querySelectorAll(".sqs-image-content");
+            let selectedFoodAllergies = [];
 
-            dietaryOptions.forEach(option => {
+            allergyOptions.forEach(option => {
                 option.addEventListener("click", function() {
                     option.classList.toggle("selected");
-                    const selectedDietary = option.getAttribute("data-dietary");
+                    const selectedAllergy = option.getAttribute("data-allergy");
 
-                    if (selectedDietary === "None") {
+                    if (selectedAllergy === "None") {
                         // If 'None' is selected, deselect all other options
                         if (option.classList.contains("selected")) {
-                            dietaryOptions.forEach(opt => {
+                            allergyOptions.forEach(opt => {
                                 if (opt !== option) {
                                     opt.classList.remove("selected");
-                                    const dietary = opt.getAttribute("data-dietary");
-                                    selectedDietaryConsiderations = selectedDietaryConsiderations.filter(d => d !== dietary);
+                                    const allergy = opt.getAttribute("data-allergy");
+                                    selectedFoodAllergies = selectedFoodAllergies.filter(a => a !== allergy);
                                 }
                             });
                         }
                     } else {
-                        // If any other dietary consideration is selected, deselect 'None'
-                        const noneOption = document.querySelector('[data-dietary="None"]');
+                        // If any other allergy is selected, deselect 'None'
+                        const noneOption = document.querySelector('[data-allergy="None"]');
                         if (noneOption.classList.contains("selected")) {
                             noneOption.classList.remove("selected");
-                            selectedDietaryConsiderations = selectedDietaryConsiderations.filter(d => d !== "None");
+                            selectedFoodAllergies = selectedFoodAllergies.filter(a => a !== "None");
                         }
                     }
 
                     if (option.classList.contains("selected")) {
-                        selectedDietaryConsiderations.push(selectedDietary);
+                        selectedFoodAllergies.push(selectedAllergy);
                     } else {
-                        selectedDietaryConsiderations = selectedDietaryConsiderations.filter(d => d !== selectedDietary);
+                        selectedFoodAllergies = selectedFoodAllergies.filter(a => a !== selectedAllergy);
                     }
-                    localStorage.setItem('selectedDietaryConsiderations', JSON.stringify(selectedDietaryConsiderations));
+                    localStorage.setItem('foodAllergies', JSON.stringify(selectedFoodAllergies));
                 });
             });
 
             document.querySelector(".next-button").addEventListener("click", function() {
-                // Proceed to cuisines.html
-                if (selectedDietaryConsiderations.length > 0) {
-                    window.location.href = "cuisines.html";
+                // Proceed to dietary-considerations.html
+                if (selectedFoodAllergies.length > 0) {
+                    window.location.href = "dietary-considerations.html";
                 } else {
-                    alert("Please select at least one dietary consideration to continue.");
+                    alert("Please select at least one food allergy option to continue.");
                 }
             });
         });
