@@ -179,7 +179,7 @@
 
                     // Add a 3-second delay before triggering the Make scenario
                     setTimeout(() => {
-                        const athleteID = data.id;
+                        const athleteID = data.fields && data.fields.AthleteID; // Retrieve the custom AthleteID field
                         if (athleteID) {
                             fetch('https://hook.us1.make.com/ncy8fqllddrielx4j4dpsitk4t91zxq5', {
                                 method: 'POST',
