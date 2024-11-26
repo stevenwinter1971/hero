@@ -177,24 +177,26 @@
                 .then(data => {
                     console.log('Athlete record added successfully:', data);
 
-                    // Trigger Make scenario (optional)
-                    const athleteID = data.id;
-                    if (athleteID) {
-                        fetch('https://hook.us1.make.com/ncy8fqllddrielx4j4dpsitk4t91zxq5', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ athleteID })
-                        })
-                            .then(response => response.text())
-                            .then(data => {
-                                console.log('Make scenario triggered successfully:', data);
+                    // Add a 3-second delay before triggering the Make scenario
+                    setTimeout(() => {
+                        const athleteID = data.id;
+                        if (athleteID) {
+                            fetch('https://hook.us1.make.com/ncy8fqllddrielx4j4dpsitk4t91zxq5', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ athleteID })
                             })
-                            .catch(error => {
-                                console.error('Error triggering Make scenario:', error);
-                            });
-                    }
+                                .then(response => response.text())
+                                .then(data => {
+                                    console.log('Make scenario triggered successfully:', data);
+                                })
+                                .catch(error => {
+                                    console.error('Error triggering Make scenario:', error);
+                                });
+                        }
+                    }, 3000); // 3-second delay
                 })
                 .catch(error => {
                     console.error('An error occurred while adding athlete record:', error);
