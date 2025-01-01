@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hero Clinical Solutions</title>
+    <title>Hero Lifestyle Survey</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
     <!-- External CSS -->
     <link rel="stylesheet" href="css/clinical-solutions.css">
-    <!-- Embedded Typeform CSS -->
+    <!-- Embedded Typeform and Header Override CSS -->
     <style>
         /* Typeform Section Styles */
         .typeform-section {
@@ -17,7 +17,7 @@
             align-items: center;
             min-height: 80vh;
             padding: 20px;
-            background-color: #f9f9f9; /* Optional: Background for contrast */
+            background-color: #f9f9f9; /* Page background color */
         }
 
         .typeform-wrapper {
@@ -49,6 +49,11 @@
                 padding: 10px;
             }
         }
+
+        /* Override Navbar Background Color */
+        nav {
+            background-color: #f9f9f9 !important; /* Match the page background color */
+        }
     </style>
 </head>
 <body>
@@ -60,11 +65,14 @@
                 <img src="assets/Hero_logo.svg" alt="Hero Logo">
             </a>
         </div>
-
+        <div class="menu">
+            <a href="clinical-solutions.html">Clinical Solutions</a>
+            <a href="consumer-solutions.html">Consumer Solutions</a>
+            <a href="login.html">Log In</a>
+        </div>
     </nav>
 
     <!-- Typeform Integration -->
-    <br><br>
     <section class="typeform-section">
         <div class="typeform-wrapper">
             <div data-tf-live="01JGFVG7HPNJBSWS3V1WE1ZVX2"></div>
@@ -72,7 +80,26 @@
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">
+            <a href="index.html">
+                <img src="assets/Hero_logo.svg" alt="Hero Logo">
+            </a>
+        </div>
 
+        <div class="social-icons">
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                <img src="assets/x.svg" class="icon-x" alt="X Icon">
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+                <img src="assets/instagram.svg" class="icon-instagram" alt="Instagram Icon">
+            </a>
+            <a href="https://www.linkedin.com/company/heroicinnovations/" target="_blank" rel="noopener noreferrer">
+                <img src="assets/linkedin.svg" class="icon-linkedin" alt="LinkedIn Icon">
+            </a>
+        </div>
+    </footer>
 
 </body>
 </html>
