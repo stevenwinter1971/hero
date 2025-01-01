@@ -4,8 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hero Clinical Solutions</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/clinical-solutions.css">
+    <!-- Embedded CSS -->
+    <style>
+        /* Import Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Roboto:wght@300;500&display=swap');
+
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        /* Navbar Styles */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .logo img {
+            height: 50px;
+        }
+
+        nav .menu a {
+            margin-left: 20px;
+            text-decoration: none;
+            color: #333333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav .menu a:hover {
+            color: #007BFF; /* Change to your preferred hover color */
+        }
+
+        /* Typeform Section */
+        .typeform-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 20px;
+            background-color: #f9f9f9; /* Optional: Add a background color for better contrast */
+        }
+
+        /* Typeform Wrapper */
+        .typeform-wrapper {
+            width: 100%;
+            max-width: 800px; /* Adjust this value to set the desired maximum width */
+            box-sizing: border-box;
+            padding: 20px;
+            background-color: #ffffff; /* Optional: Add padding and background for better aesthetics */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+            border-radius: 8px; /* Optional: Rounded corners */
+        }
+
+        /* Footer Styles */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #ffffff;
+            border-top: 1px solid #eaeaea;
+            flex-wrap: wrap;
+        }
+
+        footer .footer-logo img {
+            height: 40px;
+        }
+
+        footer .social-icons a {
+            margin-left: 15px;
+        }
+
+        footer .social-icons img {
+            height: 24px;
+            width: 24px;
+            transition: transform 0.3s;
+        }
+
+        footer .social-icons img:hover {
+            transform: scale(1.1);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 900px) {
+            .typeform-wrapper {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .typeform-wrapper {
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            nav .menu a {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+
+            footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            footer .social-icons {
+                margin-top: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -24,9 +144,11 @@
     </nav>
 
     <!-- Typeform Integration -->
-    <section class="typeform-section" style="display: flex; justify-content: center; align-items: center; min-height: 80vh; padding: 20px;">
-        <div data-tf-live="01JGFVG7HPNJBSWS3V1WE1ZVX2"></div>
-        <script src="//embed.typeform.com/next/embed.js"></script>
+    <section class="typeform-section">
+        <div class="typeform-wrapper">
+            <div data-tf-live="01JGFVG7HPNJBSWS3V1WE1ZVX2"></div>
+            <script src="//embed.typeform.com/next/embed.js"></script>
+        </div>
     </section>
 
     <!-- Footer -->
